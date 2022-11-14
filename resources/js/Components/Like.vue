@@ -1,7 +1,7 @@
 <script setup>
 
 import { Link } from '@inertiajs/inertia-vue3';
-import { reactive} from 'vue';
+
 import {format} from 'friendly-numbers';
 
 const props = defineProps(['chirp']);

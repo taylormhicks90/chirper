@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\Chirps\ChirpLikesController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,6 +37,10 @@ Route::resource('chirps', ChirpController::class)
 
 Route::resource('chirps.likes', ChirpLikesController::class)
     ->only(['store','destroy'])
+    ->middleware(['auth','verified']);
+
+Route::resource('users', UsersController::class)
+    ->only(['index','show'])
     ->middleware(['auth','verified']);
 
 require __DIR__.'/auth.php';

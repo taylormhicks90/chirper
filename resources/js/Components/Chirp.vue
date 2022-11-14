@@ -6,7 +6,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import Like from '@/Components/Like.vue'
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import {useForm} from '@inertiajs/inertia-vue3';
+import {useForm, Link} from '@inertiajs/inertia-vue3';
 import {ref} from 'vue';
 
 dayjs.extend(relativeTime);
@@ -30,7 +30,7 @@ const editing = ref(false);
     <div class="flex-1">
       <div class="flex justify-between items-center">
         <div>
-          <span class="text-gray-800">{{ chirp.user.name }}</span>
+          <Link :href="route('users.show',chirp.user.id)" >{{ chirp.user.name }}</Link>
           <small class="ml-2 text-sm text-gray-600">{{ dayjs(chirp.created_at).fromNow() }}</small>
           <small v-if="chirp.created_at !== chirp.updated_at" class="text-sm text-gray-600"> &middot; edited</small>
         </div>

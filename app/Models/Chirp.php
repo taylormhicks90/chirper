@@ -12,6 +12,8 @@ class Chirp extends Model
 {
     use HasFactory;
 
+    protected $with = ['user:id,name'];
+
     protected $fillable = [
         'message',
     ];
@@ -29,4 +31,5 @@ class Chirp extends Model
     {
         return $this->hasMany(ChirpLike::class);
     }
+
 }

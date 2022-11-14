@@ -53,7 +53,7 @@ class ChirpPolicy
      */
     public function update(User $user, Chirp $chirp)
     {
-        return $chirp->user()->is($user);
+        return $this->ownsChirp($user,$chirp);
     }
 
     /**
@@ -65,7 +65,7 @@ class ChirpPolicy
      */
     public function delete(User $user, Chirp $chirp)
     {
-        //
+        return $this->ownsChirp($user, $chirp);
     }
 
     /**
@@ -90,5 +90,17 @@ class ChirpPolicy
     public function forceDelete(User $user, Chirp $chirp)
     {
         //
+    }
+
+    /**
+     * Determine if the user owns the chirp
+     *
+     * @param \App\Models\User $user
+     * @param \App\Models\Chirp $chirp
+     *
+     * @return bool
+     */
+    private function ownsChirp(User $user, Chirp $chirp){
+        return $chirp->user()->is($user);
     }
 }

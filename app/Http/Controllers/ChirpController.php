@@ -17,20 +17,10 @@ class ChirpController extends Controller
     public function index()
     {
         return Inertia::render('Chirps/Index',[
-            'chirps' => Chirp::with('user:id,name')->latest()->get(),
+            'chirps' => Chirp::with('user:id,name')->withCount('likes')->with('likes',function($query){
+                $query->where('user_id',\request()->user()->id);
+            })->latest()->get(),
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function create(Request $request) : RedirectResponse
-    {
-
     }
 
     /**
@@ -58,17 +48,6 @@ class ChirpController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Chirp $chirp)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Chirp $chirp)
     {
         //
     }

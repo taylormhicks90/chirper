@@ -26,21 +26,18 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    Route::resource('chirps', ChirpController::class)
+         ->only(['index', 'store', 'update', 'destroy']);
 
-Route::resource('chirps', ChirpController::class)
-     ->only(['index', 'store','update','destroy'])
-     ->middleware(['auth', 'verified']);
+    Route::patch('/chirps/{chirp}/like', [ChirpLikesController::class,'store'])->name('chirps.like.store');
+    Route::delete('/chirps/{chirp}/like',[ChirpLikesController::class,'destroy'])->name('chirps.like.delete');
 
-Route::resource('chirps.likes', ChirpLikesController::class)
-    ->only(['store','destroy'])
-    ->middleware(['auth','verified']);
-
-Route::resource('users', UsersController::class)
-    ->only(['index','show'])
-    ->middleware(['auth','verified']);
-
-require __DIR__.'/auth.php';
+    Route::resource('users', UsersController::class)
+         ->only(['index', 'show']);
+});
+require __DIR__ . '/auth.php';

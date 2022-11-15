@@ -13,9 +13,9 @@ const form = useForm();
 
 const toggleLike = function (){
   if(state.liked){
-    form.delete(route('chirps.like',props.chirp.id),{preserveScroll:true, onSuccess: function () { state.liked=!state.liked}});
+    form.delete(route('chirps.like.delete',props.chirp.id),{preserveScroll:true, onSuccess: function () { state.liked=!state.liked}});
   }else{
-    form.patch(route('chirps.like',props.chirp.id),{preserveScroll:true, onSuccess: function (){ state.liked=!state.liked}});
+    form.patch(route('chirps.like.store',props.chirp.id),{preserveScroll:true, onSuccess: function (){ state.liked=!state.liked}});
   }
 };
 </script>

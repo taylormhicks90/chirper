@@ -68,7 +68,7 @@ const editing = ref(false);
       </form>
       <p v-else class="mt-4 text-lg text-gray-900">{{ chirp.message }}</p>
       <div class="text-end">
-        <Like :chirp="chirp" :key="chirp.id + '_' + $page.props.auth.user.id"/>
+        <Like :chirp="chirp" :key="chirp.id + '_like'"/>
       </div>
     </div>
   </div>

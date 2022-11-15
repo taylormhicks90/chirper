@@ -39,6 +39,8 @@ Route::resource('chirps.likes', ChirpLikesController::class)
     ->only(['store','destroy'])
     ->middleware(['auth','verified']);
 
+Route::post('/chirp/{chirp}/toggle', [ChirpLikesController::class, 'toggle'])->name('chirp.toggle');
+
 Route::resource('users', UsersController::class)
     ->only(['index','show'])
     ->middleware(['auth','verified']);

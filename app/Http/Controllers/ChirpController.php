@@ -17,9 +17,7 @@ class ChirpController extends Controller
     public function index()
     {
         return Inertia::render('Chirps/Index',[
-            'chirps' => Chirp::with('user:id,name')->withCount('likes')->with('likes',function($query){
-                $query->where('user_id',\request()->user()->id);
-            })->latest()->get(),
+            'chirps' => Chirp::with('chirpLikes')->get(),
         ]);
     }
 

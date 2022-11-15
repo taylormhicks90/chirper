@@ -32,4 +32,9 @@ class Chirp extends Model
         return $this->hasMany(ChirpLike::class);
     }
 
+    public function chirpLikes(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'chirp_likes');
+    }
+
 }

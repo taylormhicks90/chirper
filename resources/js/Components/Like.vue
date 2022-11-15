@@ -14,7 +14,7 @@ const form = useForm();
 const toggleLike = () => {
     return form.post(route('chirp.toggle', props.chirp.id), { preserveScroll:true, onSuccess: () => state.liked = !state.liked });
 }
-console.log(props);
+
 </script>
 
 <template>

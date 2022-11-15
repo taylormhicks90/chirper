@@ -32,19 +32,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('chirps', ChirpController::class)
-         ->only(['index', 'store', 'update', 'destroy']);
+        ->only(['index', 'store', 'update', 'destroy']);
 
-    Route::patch('/chirps/{chirp}/like', [ChirpLikesController::class,'store'])->name('chirps.like.store');
-    Route::delete('/chirps/{chirp}/like',[ChirpLikesController::class,'destroy'])->name('chirps.like.delete');
+    Route::patch('/chirps/{chirp}/like', [ChirpLikesController::class, 'store'])->name('chirps.like.store');
+    Route::delete('/chirps/{chirp}/like', [ChirpLikesController::class, 'destroy'])->name('chirps.like.delete');
 
-Route::resource('chirps.likes', ChirpLikesController::class)
-    ->only(['store','destroy'])
-    ->middleware(['auth','verified']);
+    Route::resource('chirps.likes', ChirpLikesController::class)
+        ->only(['store', 'destroy'])
+        ->middleware(['auth', 'verified']);
 
-Route::post('/chirp/{chirp}/toggle', [ChirpLikesController::class, 'toggle'])->name('chirp.toggle');
+    Route::post('/chirp/{chirp}/toggle', [ChirpLikesController::class, 'toggle'])->name('chirp.toggle');
 
-Route::resource('users', UsersController::class)
-    ->only(['index','show'])
-    ->middleware(['auth','verified']);
+    Route::resource('users', UsersController::class)
+        ->only(['index', 'show'])
+        ->middleware(['auth', 'verified']);
+});
 
 require __DIR__.'/auth.php';
+

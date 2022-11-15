@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chirp;
+use App\Models\ChirpLike;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,8 +17,10 @@ class ChirpController extends Controller
      */
     public function index()
     {
+
         return Inertia::render('Chirps/Index',[
-            'chirps' => Chirp::with('chirpLikes')->get(),
+            'chirps' => Chirp::withCount('chirpLikes')->get(),
+            'hasLiked' => ChirpLike::where('user_id', auth()->id())->exists(),
         ]);
     }
 

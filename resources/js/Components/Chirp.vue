@@ -11,7 +11,7 @@ import {ref} from 'vue';
 
 dayjs.extend(relativeTime);
 
-const props = defineProps(['chirp']);
+const props = defineProps(['chirp', 'hasLiked']);
 
 const form = useForm({
   message: props.chirp.message,
@@ -68,7 +68,7 @@ const editing = ref(false);
       </form>
       <p v-else class="mt-4 text-lg text-gray-900">{{ chirp.message }}</p>
       <div class="text-end">
-        <Like :chirp="chirp" :key="chirp.id + '_like'"/>
+        <Like :chirp="chirp" :hasLiked="hasLiked" :key="chirp.id + '_like'"/>
       </div>
     </div>
   </div>

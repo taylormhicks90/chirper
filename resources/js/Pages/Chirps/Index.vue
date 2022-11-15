@@ -5,11 +5,12 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Chirp from '@/Components/Chirp.vue';
 import { useForm, Head } from '@inertiajs/inertia-vue3';
 
-defineProps(['chirps']);
+const props = defineProps(['chirps', 'hasLiked']);
 
 const form = useForm({
   message: '',
 });
+
 </script>
 
 <template>
@@ -38,6 +39,7 @@ const form = useForm({
             v-for="chirp in chirps"
             :key="chirp.id"
             :chirp="chirp"
+            :hasLiked="props.hasLiked"
         />
       </div>
     </div>

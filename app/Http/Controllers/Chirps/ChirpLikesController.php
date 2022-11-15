@@ -13,6 +13,13 @@ use Illuminate\Http\Response;
 class ChirpLikesController extends Controller
 {
 
+    public function toggle(Chirp $chirp)
+    {
+        $chirp->chirpLikes()->toggle(auth()->id(), $chirp->id);
+
+        return redirect()->back();
+    }
+
     /**
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Chirp        $chirp

@@ -4,7 +4,7 @@ import {Link, useForm} from '@inertiajs/inertia-vue3';
 
 import {format} from 'friendly-numbers';
 import {reactive} from "vue";
-import {Inertia } from "@inertiajs/inertia";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const props = defineProps(['chirp']);
 
@@ -14,6 +14,7 @@ const form = useForm();
 const toggleLike = () => {
     return form.post(route('chirp.toggle', props.chirp.id), { preserveScroll:true, onSuccess: () => state.liked = !state.liked });
 }
+
 </script>
 
 <template>

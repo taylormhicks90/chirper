@@ -1,29 +1,31 @@
 <script setup>
 
-import { Link } from '@inertiajs/inertia-vue3';
+import {Link, useForm} from '@inertiajs/inertia-vue3';
 
 import {format} from 'friendly-numbers';
 import {reactive} from "vue";
+import {Inertia } from "@inertiajs/inertia";
 
 const props = defineProps(['chirp']);
 
-const state = reactive({liked : props.chirp.likes.length > 0});
+const state = reactive({liked: props.chirp.likes.length > 0});
+const form = useForm();
 
 const toggleLike = function (){
-  state.liked = !state.liked
+  if(state.liked){
+    form.delete(route('chirps.like',props.chirp.id),{preserveScroll:true, onSuccess: function () { state.liked=!state.liked}});
+  }else{
+    form.patch(route('chirps.like',props.chirp.id),{preserveScroll:true, onSuccess: function (){ state.liked=!state.liked}});
+  }
 };
 </script>
 
 <template>
   <div>
-    <Link v-if="state.liked" :href="route('chirps.likes.destroy',[chirp.id, chirp.likes[0].id])" method="delete" as="button" @click="toggleLike"
-          type="button" class="bg-blue-500 text-white px-2 rounded-lg" preserve-scroll>
+    <button @click="toggleLike"
+          type="button" :class="(state.liked? 'bg-blue-500' : 'bg-gray-500') +' text-white px-2 rounded-lg'">
         <i class="fa-duotone fa-thumbs-up me-2"></i> {{format(chirp.likes_count)}} Likes
-    </Link>
-    <Link v-else :href="route('chirps.likes.store',chirp.id)" method="post" as="button" type="button" @click="toggleLike"
-          class="bg-gray-500 text-white px-2 rounded-lg" preserve-scroll>
-        <i class="fa-duotone fa-thumbs-up me-2"></i> {{format(chirp.likes_count)}} Likes
-    </Link>
+    </button>
   </div>
 </template>
 

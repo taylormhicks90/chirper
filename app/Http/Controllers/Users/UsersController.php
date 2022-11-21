@@ -17,9 +17,7 @@ class UsersController extends Controller
     public function index() : Response
 
     {
-        return Inertia::render('Users/Index',[
-            'users' => User::select(['id','name','created_at'])->withCount('chirps')->get(),
-        ]);
+        return Inertia::render('Users/Index');
     }
 
 

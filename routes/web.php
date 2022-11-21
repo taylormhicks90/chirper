@@ -4,6 +4,7 @@
 use App\Http\Controllers\Chirps\ChirpController;
 use App\Http\Controllers\Chirps\FetchChirpsController;
 use App\Http\Controllers\Chirps\LikeChirpsController;
+use App\Http\Controllers\Users\FetchUsersController;
 use App\Http\Controllers\Users\UserChirpsController;
 use App\Http\Controllers\Users\UsersController;
 use Illuminate\Foundation\Application;
@@ -29,18 +30,23 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware([])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    //Chirps Routes
     Route::resource('chirps', ChirpController::class)
          ->only(['index', 'store', 'update', 'destroy']);
     Route::patch('/like/{chirp}', LikeChirpsController::class)->name('chirps.like');
-    Route::get('chirps.fetch', FetchChirpsController::class)->name('chirps.fetch');
+    Route::get('/chirp/fetch', FetchChirpsController::class)->name('chirps.fetch');
 
+    //Users Routes
     Route::resource('users', UsersController::class)
          ->only(['index', 'show']);
+    Route::get('/user/fetch', FetchUsersController::class)->name('users.fetch');
     Route::get('/user/{user}/chirps', UserChirpsController::class)->name('user.chirps');
+
+
 });
 require __DIR__ . '/auth.php';

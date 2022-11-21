@@ -26,11 +26,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'jesse@reviewmaximizer.nl',
         ]);
 
-         User::factory(100)->create();
+         User::factory(10)->create();
 
-         for($count = 0; $count < 1000; $count++ ){
+         for($count = 0; $count < 100; $count++ ){
              $chirp = Chirp::factory()->for(User::inRandomOrder()->first())->create();
-             if(mt_rand(0,1)){
+             for($likeCount = 0; $likeCount < mt_rand(0,5); $likeCount++){
                  $chirp->like(User::inRandomOrder()->first()->id);
              }
          }

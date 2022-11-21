@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Chirp;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,12 +17,23 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-         \App\Models\User::factory()->create([
-             'name' => 'Test User',
-             'email' => 'test@example.com',
+         User::factory()->create([
+             'name' => 'Taylor',
+             'email' => 'taylor@mailinator.com',
          ]);
+        User::factory()->create([
+            'name' => 'Jesse',
+            'email' => 'jesse@reviewmaximizer.nl',
+        ]);
 
-         $users = \App\Models\User::factory(10000)->hasChirps(rand(100,10000))->create();
+         User::factory(100)->create();
+
+         for($count = 0; $count < 1000; $count++ ){
+             $chirp = Chirp::factory()->for(User::inRandomOrder()->first())->create();
+             if(mt_rand(0,1)){
+                 $chirp->like(User::inRandomOrder()->first()->id);
+             }
+         }
 
     }
 }

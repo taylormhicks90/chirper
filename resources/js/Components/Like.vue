@@ -4,7 +4,7 @@ import {reactive} from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import axios from "axios";
 
-const props = defineProps(['chirp']);
+let props = defineProps(['chirp']);
 const state = reactive({chirp: props.chirp,});
 
 const toggleLike = async function (){

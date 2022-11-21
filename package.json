@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "dayjs": "^1.11.6",
-        "friendly-numbers": "^1.0.1"
+        "friendly-numbers": "^1.0.1",
+        "laravel-vue-pagination": "^4.0.0"
     }
 }

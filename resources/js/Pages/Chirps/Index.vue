@@ -3,13 +3,22 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Chirp from '@/Components/Chirp.vue';
+import { TailwindPagination } from 'laravel-vue-pagination';
 import { useForm, Head } from '@inertiajs/inertia-vue3';
+import { ref } from 'vue';
 
-defineProps(['chirps']);
+const chirps = ref({});
+
+const fetchChirps = async (page = 1) => {
+  const response = await fetch(route('chirps.fetch') + `?page=${page}`);
+  chirps.value = await response.json();
+}
 
 const form = useForm({
   message: '',
 });
+
+fetchChirps();
 </script>
 
 <template>
@@ -35,9 +44,19 @@ const form = useForm({
 
       <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
         <Chirp
-            v-for="chirp in chirps"
+            v-for="chirp in chirps.data"
             :key="chirp.id"
             :chirp="chirp"
+        />
+
+      </div>
+
+      <div class="mt-6 flex">
+        <TailwindPagination
+            :data="chirps"
+            :limit="1"
+            @pagination-change-page="fetchChirps"
+            class="mx-auto"
         />
       </div>
     </div>

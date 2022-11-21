@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ChirpController;
-use App\Http\Controllers\Chirps\ChirpLikesController;
+
+use App\Http\Controllers\Chirps\ChirpController;
+use App\Http\Controllers\Chirps\FetchChirpsController;
+use App\Http\Controllers\Chirps\LikeChirpsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -33,10 +35,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('chirps', ChirpController::class)
          ->only(['index', 'store', 'update', 'destroy']);
+    Route::patch('/like/{chirp}', LikeChirpsController::class)->name('chirps.like');
 
-    Route::patch('/chirps/{chirp}/like', [ChirpLikesController::class,'store'])->name('chirps.like.store');
-    Route::delete('/chirps/{chirp}/like',[ChirpLikesController::class,'destroy'])->name('chirps.like.delete');
-
+    Route::get('chirps.fetch', FetchChirpsController::class)->name('chirps.fetch');
     Route::resource('users', UsersController::class)
          ->only(['index', 'show']);
 });

@@ -34,9 +34,7 @@ class UsersController extends Controller
         return Inertia::render('Users/Show',
             [
                 'user' => $user->only(['id', 'name']),
-                'chirps' => $user->chirps()->withCount('likes')->with('likes', function ($query) {
-                    $query->where('user_id', \request()->user()->id);
-                })->latest()->get()
+                'chirps' => $user->chirps()->latest()->paginate(),
             ]);
     }
 

@@ -17,7 +17,7 @@ class ChirpFactory extends Factory
     public function definition()
     {
         return [
-            'message' => $this->faker->text('255')
+            'message' => $this->faker->text('254')
         ];
     }
 }

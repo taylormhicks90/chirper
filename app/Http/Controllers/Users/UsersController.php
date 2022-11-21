@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Users;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -34,7 +35,6 @@ class UsersController extends Controller
         return Inertia::render('Users/Show',
             [
                 'user' => $user->only(['id', 'name']),
-                'chirps' => $user->chirps()->latest()->paginate(),
             ]);
     }
 

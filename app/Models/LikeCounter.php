@@ -13,6 +13,7 @@ class LikeCounter extends Eloquent
     protected $table = 'likeable_like_counters';
     public $timestamps = false;
     protected $fillable = ['likeable_id', 'likeable_type', 'count'];
+    protected $hidden = ['likeable_id','likeable_type'];
 
     /**
      * @access private

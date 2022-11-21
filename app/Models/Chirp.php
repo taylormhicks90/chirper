@@ -13,6 +13,7 @@ class Chirp extends Model
     use HasFactory, Likeable;
 
     protected $with = ['user:id,name','likeCounter'];
+    protected $hidden = ['user_id'];
 
 
     public static function boot(){
@@ -20,7 +21,6 @@ class Chirp extends Model
         static::retrieved(function(Chirp $chirp){
             $chirp->liked = $chirp->liked();
         });
-
     }
 
     protected $fillable = [

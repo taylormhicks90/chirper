@@ -4,7 +4,8 @@
 use App\Http\Controllers\Chirps\ChirpController;
 use App\Http\Controllers\Chirps\FetchChirpsController;
 use App\Http\Controllers\Chirps\LikeChirpsController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Users\UserChirpsController;
+use App\Http\Controllers\Users\UsersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,9 +37,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('chirps', ChirpController::class)
          ->only(['index', 'store', 'update', 'destroy']);
     Route::patch('/like/{chirp}', LikeChirpsController::class)->name('chirps.like');
-
     Route::get('chirps.fetch', FetchChirpsController::class)->name('chirps.fetch');
+
     Route::resource('users', UsersController::class)
          ->only(['index', 'show']);
+    Route::get('/user/{user}/chirps', UserChirpsController::class)->name('user.chirps');
 });
 require __DIR__ . '/auth.php';

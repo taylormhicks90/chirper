@@ -152,7 +152,7 @@ trait Likeable
      */
     public function likeCounter()
     {
-        return $this->morphOne(LikeCounter::class, 'likeable');
+        return $this->morphOne(LikeCounter::class, 'likeable')->withDefault(['count'=>0]);
     }
 
     /**

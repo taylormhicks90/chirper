@@ -17,7 +17,6 @@ class ChirpController extends Controller
      */
     public function index()
     {
-
         return Inertia::render('Chirps/Index',[
             'chirps' => Chirp::withCount('chirpLikes')->get(),
             'hasLiked' => ChirpLike::where('user_id', auth()->id())->exists(),
@@ -37,7 +36,9 @@ class ChirpController extends Controller
             'message' => 'required|string|max:255',
         ]);
 
-        $request->user()->chirps()->create($validated);
+        $request->user()
+            ->chirps()
+            ->create($validated);
 
         return redirect(route('chirps.index'));
     }
@@ -79,7 +80,7 @@ class ChirpController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Routing\Redirector|RedirectResponse
      */
     public function destroy(Chirp $chirp)
     {

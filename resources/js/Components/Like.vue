@@ -4,7 +4,6 @@ import {Link, useForm} from '@inertiajs/inertia-vue3';
 
 import {format} from 'friendly-numbers';
 import {reactive} from "vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const props = defineProps(['chirp', 'hasLiked']);
 

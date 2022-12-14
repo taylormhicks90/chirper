@@ -5,17 +5,16 @@ namespace App\Http\Controllers\Chirps;
 use App\Http\Controllers\Controller;
 use App\Models\Chirp;
 use App\Models\ChirpLike;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class ChirpLikesController extends Controller
 {
 
     public function toggle(Chirp $chirp)
     {
-        $chirp->chirpLikes()->toggle(auth()->id(), $chirp->id);
+        $chirp->chirpLikes()
+            ->toggle(auth()->id(), $chirp->id);
 
         return redirect()->back();
     }
@@ -46,8 +45,15 @@ class ChirpLikesController extends Controller
      */
     public function destroy(Request $request, Chirp $chirp): RedirectResponse
     {
-        $like = ChirpLike::query()->where('user_id','=', $request->user()->id)->where('chirp_id','=',$chirp->id,)->first();
+        $like = ChirpLike::query()
+            ->where([
+                'user_id','=', $request->user()->id,
+                'chirp_id','=',$chirp->id
+            ])
+            ->first();
+
         $like?->delete();
+
         return redirect()->back();
     }
 }
